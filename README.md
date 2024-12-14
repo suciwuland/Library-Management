@@ -110,12 +110,12 @@ the server will run on ```http://localhost:4000```
 
 ## 📷 Interface Project
 
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-1.png)
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-2.png)
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-3.png)
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-4.png)
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-5.png)
-![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-6.png)
+![Library Management Screenshot](main/Screenshot-1.png)
+![Library Management Screenshot](main/Screenshot-2.png)
+![Library Management Screenshot](main/Screenshot-3.png)
+![Library Management Screenshot](main/Screenshot-4.png)
+![Library Management Screenshot](main/Screenshot-5.png)
+![Library Management Screenshot](main/Screenshot-6.png)
 
 ## ⚙️ Dokumentasi API
 
