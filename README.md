@@ -9,32 +9,59 @@ Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direkt
 /library-management-system
 
 │
+
 ├── /config
+
 │   └── database.js
+
 │
+
 ├── /controllers
+
 │   ├── bookController.js
+
 │   ├── memberController.js
+
 │   └── borrowingController.js
+
 │
+
 ├── /models
+
 │   ├── book.js
+
 │   ├── member.js
+
 │   └── borrowing.js
+
 │
+
 ├── /services
+
 │   ├── bookService.js
+
 │   ├── memberService.js
+
 │   └── borrowingService.js
+
 │
+
 ├── /routes
+
 │   ├── bookRoutes.js
+
 │   ├── memberRoutes.js
+
 │   └── borrowingRoutes.js
+
 │
+
 ├── /views
+
 │   └── index.ejs
+
 │
+
 └── app.js
 
 ## 🚀 Project Setup
