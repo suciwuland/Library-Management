@@ -2,7 +2,8 @@
 ## 📚 Deskripsi
 Ini adalah aplikasi RESTful API untuk sistem manajemen perpustakaan menggunakan Express.js.  
 
-Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direktori yang ditentukan sebagai tugas teknikal.
+Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direktori yang ditentukan sebagai tes teknikal.
+
 
 ## 📂 Struktur Proyek 
 /library-management-system  
@@ -62,6 +63,7 @@ Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direkt
 │
 
 └── app.js
+
 
 ## 🚀 Project Setup
 
@@ -210,16 +212,19 @@ CREATE DATABASE library_management;
  }
 ```
 
+
 ## 📜 Cara Menjalankan Aplikasi
 ```
 npm start
 ```
 the server will run on `http://localhost:4000`
 
+
 ## 📌 Fitur
 - Kelola data buku: Tambah, hapus, dan lihat buku di perpustakaan.
 - Kelola data anggota: Tambah anggota perpustakaan.
 - Kelola transaksi peminjaman dan pengembalian: Proses peminjaman dan pengembalian buku dengan status otomatis.
+
 
 ## 📷 Interface Project 
 ![Library Management Screenshot](main/Screenshot-1.png)
@@ -266,6 +271,7 @@ Response:
 }
 ```
 
+
 **2. POST /api/members**
 
 Request:
@@ -277,6 +283,7 @@ Request:
    address: "panggoi"
 }
 ```
+
 
 **3. POST /api/borrowings**
 
@@ -300,6 +307,8 @@ Response:
     "return_date": null
 }
 ```
+
+
 **4. PUT  /api/borrowings/:id/return**
 
 Request:
@@ -326,6 +335,8 @@ Response:
    updated_at: "2024-12-14T11:29:05.007Z"
 }
 ```
+
+
 **5. GET  /api/members/:id/borrowings?status=RETURNED&page=1&limit=3**
 
 Response:
@@ -396,6 +407,8 @@ Response:
   }
 ]
 ```
+
+
 **6. POST api/books/addbooks**
 
 Request:
@@ -421,6 +434,8 @@ Response:
     "updated_at": "2024-12-14T11:45:36.107Z"
 }
 ```
+
+
 **7. DELETE api/books/delete/:id**
 
 Response
