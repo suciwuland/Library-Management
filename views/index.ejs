@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Library Management System</h1>
+
+        <!-- Navigation Buttons -->
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#registerModal">Register
+                Member</button>
+            <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#returnModal">Return
+                Book</button>
+            <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal"
+                data-bs-target="#borrowModal">Borrow</button>
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addBookModal">Add Book</button>
+        </div>
+
+        <!-- Search Book -->
+        <div class="col mb-3 d-flex">
+            <form id="searchForm" class="input-group me-3">
+                <input type="text" class="form-control" name="title" placeholder="Cari Judul Buku" id="searchInput">
+                <button type="submit" class="btn btn-outline-primary">Cari</button>
+            </form>
+            <button class="btn btn-outline-secondary" data-bs-toggle="modal"
+                data-bs-target="#historyModal">History</button>
+        </div>
+
+
+        <!-- Books Table -->
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Availability</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="booksTable">
+                <% books.forEach((book, index)=> { %>
+                    <tr>
+                        <th scope="row">
+                            <%= index + 1 %>
+                        </th>
+                        <td>
+                            <%= book.title %>
+                        </td>
+                        <td>
+                            <%= book.author %>
+                        </td>
+                        <td>
+                            <%= book.published_year %>
+                        </td>
+                        <td>
+                            <%= book.stock %>
+                        </td>
+                        <td>
+                            <%= book.isbn %>
+                        </td>
+                        <td>
+                            <%= book.available ? 'Yes' : 'No' %>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-book-btn" data-id="<%= book.id %>">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+
+        <!-- Modals -->
+        <!-- Modal for Borrowing History -->
+        <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="historyModalLabel">Lihat Riwayat Peminjaman</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="historyForm">
+                            <div class="mb-3">
+                                <label for="historymemberName" class="form-label">Pilih Member</label>
+                                <input id="historymemberName" type="text" class="form-control"
+                                    placeholder="Cari Member..." required>
+                                <ul id="historyDropdown" class="dropdown-menu w-100"></ul>
+                                <label for="historymemberId" class="form-label mt-2">Member ID</label>
+                                <input type="text" class="form-control" id="historymemberId" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Lihat Riwayat</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Book Modal -->
+        <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addBookModalLabel">Add New Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addBookForm">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <input type="text" class="form-control" id="author" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="year" class="form-label">Published Year</label>
+                                <input type="number" class="form-control" id="year" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="stock" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="isbn" class="form-label">ISBN</label>
+                                <input type="text" class="form-control" id="isbn" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Book</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Member Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalLabel">Register Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label for="memberName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="memberName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="memberEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="memberEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="memberPhone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="memberPhone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="memberAddress" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="memberAddress" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Borrow Book -->
+        <div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="borrowModalLabel">Borrow Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="borrowForm">
+                            <!-- Dropdown untuk Nama Anggota -->
+                            <div class="mb-3">
+                                <label for="borrowMemberName" class="form-label">Select Member</label>
+                                <select class="form-select" id="borrowMemberName" required>
+                                    <option value="" disabled selected>Select Member</option>
+                                </select>
+                                <label for="memberId" class="form-label mt-2">Member ID</label>
+                                <input type="text" class="form-control" id="memberId" readonly>
+                            </div>
+                            <!-- Dropdown untuk Judul Buku -->
+                            <div class="mb-3">
+                                <label for="borrowTitleBook" class="form-label">Select Title Book</label>
+                                <select class="form-select" id="borrowTitleBook" required>
+                                    <option value="" disabled selected>Select Title Book</option>
+                                </select>
+                                <label for="bookId" class="form-label mt-2">Book ID</label>
+                                <input type="text" class="form-control" id="bookId" readonly>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-warning">Borrow</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Return Book Modal -->
+        <div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="returnModalLabel">Return Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="returnForm">
+                            <!-- Dropdown untuk Nama Anggota -->
+                            <div class="mb-3">
+                                <label for="returnMemberName" class="form-label">Select Member</label>
+                                <select class="form-select" id="returnMemberName" required>
+                                    <option value="" disabled selected>Select Member</option>
+                                </select>
+                                <label for="returnMemberId" class="form-label mt-2">Member ID</label>
+                                <input type="text" class="form-control" id="returnMemberId" readonly>
+                            </div>
+                            <!-- Dropdown untuk Judul Buku -->
+                            <div class="mb-3">
+                                <label for="returnTitleBook" class="form-label">Select Title Book</label>
+                                <select class="form-select" id="returnTitleBook" required>
+                                    <option value="" disabled selected>Select Title Book</option>
+                                </select>
+                                <label for="returnBookId" class="form-label mt-2">Book ID</label>
+                                <input type="text" class="form-control" id="returnBookId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="returnBorrowingId" class="form-label">Borrowing ID</label>
+                                <input type="text" class="form-control" id="returnBorrowingId" readonly>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Return</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bootstrap and jQuery JS -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function fetchBooks() {
+                $.ajax({
+                    url: '/api/books',
+                    method: 'GET',
+                    success: function (response) {
+                        let booksTable = $("#booksTable");
+
+                        if (response && response.books && Array.isArray(response.books)) {
+                            response.books.forEach((book, index) => {
+                                booksTable.append(
+                                    `<tr>
+                        <th scope="row">${index + 1}</th>
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.published_year}</td>
+                        <td>${book.stock}</td>
+                        <td>${book.isbn}</td> 
+                        <td>${book.available ? 'Yes' : 'No'}</td>
+                        <td>
+                          <button class="btn btn-danger btn-sm" onclick="deleteBook('${book.id}')">Delete</button>
+                        </td>
+                      </tr>`
+                                );
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error fetching books:", error);
+                        let booksTable = $("#booksTable");
+                        booksTable.empty();
+                        booksTable.append(`<tr><td colspan="6" class="text-center">Error loading books. Please try again later.</td></tr>`);
+                    }
+                });
+            }
+            $(document).ready(function () {
+                // Function to Fetch Books
+                fetchBooks();
+                // Function to Load Members`
+                function loadMembers() {
+                    $.ajax({
+                        url: '/api/members/get',
+                        method: 'GET',
+                        success: function (response) {
+                            const memberDropdown = $("#borrowMemberName");
+                            memberDropdown.empty().append('<option value="" disabled selected>Select Member</option>');
+
+                            response.members.forEach(member => {
+                                memberDropdown.append(
+                                    `<option value="${member.id}">${member.name}</option>` // Gunakan value untuk ID member
+                                );
+                            });
+                        },
+                        error: function (error) {
+                            console.error("Error fetching members:", error);
+                        },
+                    });
+                }
+
+                function loadBooks() {
+                    $.ajax({
+                        url: '/api/books/getbooks',
+                        method: 'GET',
+                        success: function (response) {
+                            const bookDropdown = $("#borrowTitleBook");
+                            bookDropdown.empty().append('<option value="" disabled selected>Select Title Book</option>');
+
+                            response.books.forEach(book => {
+                                bookDropdown.append(
+                                    `<option value="${book.id}">${book.title}</option>` // Gunakan value untuk ID buku
+                                );
+                            });
+                        },
+                        error: function (error) {
+                            console.error("Error fetching books:", error);
+                            const bookDropdown = $("#borrowTitleBook");
+                            bookDropdown.empty().append('<option value="" disabled>Error loading books</option>');
+                        },
+                    });
+                }
+
+                // Handle selection of member to populate memberId field
+                $('#borrowMemberName').on('change', function () {
+                    const memberId = $(this).val(); // Ambil value langsung
+                    $('#memberId').val(memberId);
+                });
+
+                // Handle book selection to populate bookId field
+                $('#borrowTitleBook').on('change', function () {
+                    const bookId = $(this).val(); // Ambil value langsung
+                    $('#bookId').val(bookId);
+                });
+
+
+                $('#borrowModal').on('show.bs.modal', function () {
+                    loadMembers();
+                    loadBooks();
+                });
+
+                // Handle Borrow Form Submission
+                $("#borrowForm").submit(function (event) {
+                    event.preventDefault();
+
+                    const memberId = $("#memberId").val();
+                    const bookId = $("#bookId").val();
+
+                    if (!memberId || !bookId) {
+                        alert("Please select both a member and a book.");
+                        return;
+                    }
+
+                    // Logging data for debugging
+                    console.log("Borrowing Data:", { bookId, memberId });
+
+                    $.ajax({
+                        url: '/api/borrowings',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ book_id: bookId, member_id: memberId }),
+                        success: function (response) {
+                            alert("Book borrowed successfully");
+                            $('#borrowModal').modal('hide');
+                            fetchBooks(); // Refresh book list
+                        },
+                        error: function (error) {
+                            console.error("Error borrowing book:", error.responseJSON || error);
+                            alert("Error borrowing book.");
+                        },
+                    });
+                });
+
+                // Function to load members for the return modal
+                function loadMembersForReturn() {
+                    $.ajax({
+                        url: '/api/members/get',
+                        method: 'GET',
+                        success: function (response) {
+                            const memberDropdown = $("#returnMemberName");
+                            memberDropdown.empty().append('<option value="" disabled selected>Select Member</option>');
+
+                            response.members.forEach(member => {
+                                memberDropdown.append(
+                                    `<option value="${member.id}">${member.name}</option>` // Using value for member ID
+                                );
+                            });
+                        },
+                        error: function (error) {
+                            console.error("Error fetching members for return:", error);
+                        },
+                    });
+                }
+
+                // Function to load books for the return modal
+                function loadBooksForReturn() {
+                    $.ajax({
+                        url: '/api/books/getbooks',
+                        method: 'GET',
+                        success: function (response) {
+                            const bookDropdown = $("#returnTitleBook");
+                            bookDropdown.empty().append('<option value="" disabled selected>Select Title Book</option>');
+
+                            response.books.forEach(book => {
+                                bookDropdown.append(
+                                    `<option value="${book.id}">${book.title}</option>` // Using value for book ID
+                                );
+                            });
+                        },
+                        error: function (error) {
+                            console.error("Error fetching books for return:", error);
+                            const bookDropdown = $("#returnTitleBook");
+                            bookDropdown.empty().append('<option value="" disabled>Error loading books</option>');
+                        },
+                    });
+                }
+
+                // Handle selection of member to populate returnMemberId field
+                $('#returnMemberName').on('change', function () {
+                    const memberId = $(this).val(); // Get value directly
+                    $('#returnMemberId').val(memberId);
+                });
+
+                // Handle book selection to populate returnBookId field
+                $('#returnTitleBook').on('change', function () {
+                    const bookId = $(this).val(); // Get value directly
+                    $('#returnBookId').val(bookId);
+
+                    // Perform API call when memberId or bookId input
+                    const memberId = $('#returnMemberId').val();
+
+                    if (memberId && bookId) {
+                        $.ajax({
+                            url: `/api/borrowings/find?memberId=${memberId}&bookId=${bookId}`,
+                            method: 'GET',
+                            success: function (response) {
+                                if (response.borrowing) {
+                                    $('#returnBorrowingId').val(response.borrowing.id);
+                                } else {
+                                    console.error("Borrowing ID not found. Please check Member Id and Book ID.");
+                                    $('#returnBorrowingId').val('');
+                                }
+                            },
+                            error: function (error) {
+                                console.error("Error fetching borrowing:", error.responseJSON || error);
+                                $('#returnBorrowingId').val('');
+                            },
+                        });
+                    } else {
+                        $('#returnBorrowingId').val('');
+                    }
+                });
+
+                // Trigger loadMembersForReturn and loadBooksForReturn when returnModal is shown
+                $('#returnModal').on('show.bs.modal', function () {
+                    loadMembersForReturn();
+                    loadBooksForReturn();
+                });
+
+                // Handle Return Form Submission
+                $('#returnForm').on('submit', async function (e) {
+                    e.preventDefault();
+
+                    const borrowingId = $('#returnBorrowingId').val();
+
+                    if (!borrowingId) {
+                        console.error("Invalid Borrowing ID.");
+                        return;
+                    }
+
+                    try {
+                        // Perform PUT request to /api/borrowings/:id/return
+                        const response = await $.ajax({
+                            url: `/api/borrowings/${borrowingId}/return`,
+                            method: 'PUT',
+                            success: function (response) {
+                                alert('Book returned successfully!');
+                                $('#returnModal').modal('hide');
+                                // Optionally refresh or update relevant parts of the UI here
+                            },
+                            error: function (error) {
+                                console.error("Error returning book:", error.responseJSON || error);
+                                alert('Failed to return the book. Please try again.');
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Unexpected error:", error);
+                        alert('An unexpected error occurred. Please try again later.');
+                    }
+                });
+
+                $('#registerForm').on('submit', async function (e) {
+                    e.preventDefault();
+
+                    const name = $('#memberName').val();
+                    const email = $('#memberEmail').val();
+                    const phone = $('#memberPhone').val();
+                    const address = $('#memberAddress').val();
+
+                    const newMember = {
+                        name,
+                        email,
+                        phone,
+                        address
+                    };
+
+                    try {
+                        const response = await $.ajax({
+                            url: '/api/members',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(newMember),
+                            success: function (response) {
+                                alert('Member registered successfully!');
+                                $('#registerModal').modal('hide');
+                            },
+                            error: function (error) {
+                                console.error("Error registering member:", error.responseJSON || error);
+                                alert(error.responseJSON?.message || 'Failed to register the member. Please try again.');
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Unexpected error:", error);
+                        alert('An unexpected error occurred. Please try again later.');
+                    }
+                });
+
+                $('#addBookForm').on('submit', async function (e) {
+                    e.preventDefault();
+
+                    const title = $('#title').val();
+                    const author = $('#author').val();
+                    const published_year = parseInt($('#year').val()); // Pastikan dikirim sebagai number
+                    const stock = parseInt($('#stock').val()); // Pastikan dikirim sebagai number
+                    const isbn = $('#isbn').val();
+
+                    const newBook = {
+                        title,
+                        author,
+                        published_year,
+                        stock,
+                        isbn
+                    };
+                    try {
+                        const response = await $.ajax({
+                            url: '/api/books/addbooks',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(newBook),
+                            success: function (response) {
+                                alert('Add Book successfully!');
+                                $('#addBookModal').modal('hide');
+                            },
+                            error: function (error) {
+                                console.error("Error adding book:", error.responseJSON || error);
+                                alert(error.responseJSON?.message || 'Failed to add the book. Please try again.');
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Unexpected error:", error);
+                        alert('An unexpected error occurred. Please try again later.');
+                    }
+                });
+
+
+
+                // Handle member selection
+                $('#historymemberName').on('select2:select', function (e) {
+                    var data = e.params.data;
+                    $('#historymemberId').val(data.id);
+                });
+
+
+                $('#historymemberName').on('input', function () {
+                    const query = $(this).val();
+                    if (query.length > 0) { // Cari hanya jika karakter lebih dari 2
+                        $.ajax({
+                            url: `/api/members/search?name=${query}`,
+                            method: 'GET',
+                            success: function (members) {
+                                $('#historyDropdown').empty();
+                                if (members.length > 0) {
+                                    members.forEach(member => {
+                                        $('#historyDropdown').append(`
+                                <li>
+                                    <button type="button" class="dropdown-item" 
+                                            data-id="${member.id}" 
+                                            data-name="${member.name}">
+                                        ${member.name}
+                                    </button>
+                                </li>
+                            `);
+                                    });
+                                } else {
+                                    $('#historyDropdown').append('<li><span class="dropdown-item">No members found</span></li>');
+                                }
+                                $('#historyDropdown').show();
+                            },
+                            error: function (error) {
+                                console.error('Error fetching members:', error);
+                            }
+                        });
+                    } else {
+                        $('#historyDropdown').hide();
+                    }
+                });
+
+                // Saat opsi pada dropdown dipilih
+                $('#historyDropdown').on('click', '.dropdown-item', function () {
+                    const historymemberId = $(this).data('id');
+                    const historymemberName = $(this).data('name');
+                    $('#historymemberName').val(historymemberName); // Tampilkan nama member di input
+                    $('#historymemberId').val(historymemberId); // Isi ID member ke input readonly
+                    $('#historyDropdown').hide(); // Sembunyikan dropdown
+                });
+
+                // Sembunyikan dropdown jika klik di luar
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest('#historymemberName, #historyDropdown').length) {
+                        $('#historyDropdown').hide();
+                    }
+                });
+
+                $('#historyForm').on('submit', function (e) {
+                    e.preventDefault(); // Mencegah default submit form
+                    const memberId = $('#historymemberId').val();
+                    if (memberId) {
+                        // Kirim request ke backend untuk mendapatkan history
+                        $.ajax({
+                            url: `/api/members/${memberId}/borrowings`,
+                            method: 'GET',
+                            success: function (response) {
+                                console.log(response); // Tampilkan hasil respons di konsol
+                                // Lakukan sesuatu dengan data hasil seperti menampilkannya dalam tabel atau UI lainnya
+                            },
+                            error: function (error) {
+                                console.error('Error fetching borrowing history:', error);
+                                alert("Terjadi kesalahan saat mengambil riwayat peminjaman anggota!");
+                            }
+                        });
+                    } else {
+                        alert("Silakan pilih member terlebih dahulu!");
+                    }
+                });
+
+                $('#booksTable').on('click', '.delete-book-btn', async function (event) {
+                    event.preventDefault();
+                    const bookId = $(this).data('id');
+
+                    if (confirm('Are you sure you want to delete this book?')) {
+                        try {
+                            await $.ajax({
+                                url: `/api/books/delete/${bookId}`, // Endpoint API delete book
+                                method: 'DELETE',
+                                success: function (response) {
+                                    alert(response.message); // Tampilkan pesan sukses
+                                    location.reload(); // Reload halaman untuk memperbarui tabel
+                                },
+                                error: function (error) {
+                                    console.error('Error deleting book:', error.responseJSON || error);
+                                    alert(error.responseJSON?.error || 'Failed to delete the book.');
+                                },
+                            });
+                        } catch (error) {
+                            console.error('Unexpected error:', error);
+                            alert('An unexpected error occurred. Please try again later.');
+                        }
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>
