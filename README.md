@@ -293,7 +293,7 @@ Response:
     "updated_at": "2024-12-14T10:06:43.936Z"
 }
 ```
-**6. DELETE  /api/books/delete/:id**
+**7. DELETE  /api/books/delete/:id**
 ```
 {
   "message": "Book deleted successfully!"
