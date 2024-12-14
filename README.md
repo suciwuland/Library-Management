@@ -102,7 +102,7 @@ npm start
 
 the server will run on ```http://localhost:4000```
 
-##📌 Fitur
+## 📌 Fitur
 
 - Kelola data buku: Tambah, hapus, dan lihat buku di perpustakaan.
 - Kelola data anggota: Tambah anggota
@@ -110,12 +110,12 @@ the server will run on ```http://localhost:4000```
 
 ## 📷 Interface Project
 
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-1.png)
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-2.png)
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-3.png)
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-4.png)
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-5.png)
-(https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-6.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-1.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-2.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-3.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-4.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-5.png)
+![Library Management Screenshot](https://raw.githubusercontent.com/suciwuland/Library-Management/main/Screenshot-6.png)
 
 ## ⚙️ Dokumentasi API
 
@@ -299,10 +299,9 @@ Response:
   "message": "Book deleted successfully!"
 }
 ```
-## ✨ Conclusion
-Thank you for reviewing this project.
+## ✨ Penutup
+Terima kasih telah meluangkan waktu untuk meninjau proyek ini.
 
-I hope this implementation demonstrates my understanding of building a RESTful API and managing a structured codebase. 
+Saya berharap implementasi ini dapat menunjukkan pemahaman saya dalam membangun RESTful API serta mengelola kode dengan struktur yang baik. 
 
-Feel free to reach out for feedback or further discussion!
 
