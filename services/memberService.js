@@ -2,7 +2,6 @@ const Member = require('../models/member');
 const Book = require('../models/book');
 const Borrowing = require('../models/borrowing');
 const { Op } = require('sequelize');
-const axios = require('axios');
 async function registerMember({ name, email, phone, address }) {
   if (!name || !email || !phone || !address) {
     throw new Error('All fields are required');
