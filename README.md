@@ -73,7 +73,8 @@ Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direkt
 git clone https://github.com/suciwuland/Library-Management.git
 cd Library-Management
 npm init -y
-npm install
+npm install express sequelize pg pg-hstore ejs
+
 ```
 
 **2. Configure Database**
@@ -224,6 +225,7 @@ CREATE TABLE borrowings (
 ## 📜 Cara Menjalankan Aplikasi
 
 ```
+
 npm start
 ```
 
