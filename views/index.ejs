@@ -686,7 +686,6 @@
                                 method: 'DELETE',
                                 success: function (response) {
                                     alert(response.message); // Tampilkan pesan sukses
-                                    location.reload(); // Reload halaman untuk memperbarui tabel
                                 },
                                 error: function (error) {
                                     console.error('Error deleting book:', error.responseJSON || error);
