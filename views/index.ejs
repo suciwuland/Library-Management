@@ -662,9 +662,9 @@
                             url: `/api/members/${memberId}/borrowings`,
                             method: 'GET',
                             success: function (response) {
-                                console.log(response); // Tampilkan hasil respons di konsol
-                                // Lakukan sesuatu dengan data hasil seperti menampilkannya dalam tabel atau UI lainnya
-                            },
+                                console.log(response); 
+                                window.location.href = `/api/members/${memberId}/borrowings`;
+                          },
                             error: function (error) {
                                 console.error('Error fetching borrowing history:', error);
                                 alert("Terjadi kesalahan saat mengambil riwayat peminjaman anggota!");
