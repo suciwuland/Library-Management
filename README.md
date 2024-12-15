@@ -72,6 +72,7 @@ Proyek ini menggunakan PostgreSQL sebagai database dan mengikuti struktur direkt
  ```
 git clone https://github.com/suciwuland/Library-Management.git
 cd Library-Management
+npm init -y
 npm install
 ```
 
@@ -208,12 +209,16 @@ CREATE TABLE borrowings (
 
 **3. Update konfigurasi di ```src/config/database.js```**
 
-```{ user: 'postgres',
- host: 'localhost',
- database: 'library_management',
- password: '<your_password>',
- port: 5432
- }
+```
+ const sequelize = new Sequelize(
+  'library_management', 
+  'postgres', 
+  '<your_password>', 
+  {
+  host: 'localhost',
+  dialect: 'postgres',
+  });
+
 ```
 
 ## 📜 Cara Menjalankan Aplikasi
