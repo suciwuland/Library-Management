@@ -202,7 +202,7 @@ CREATE DATABASE library_management;
  '2024-12-10', '2024-12-17', 'RETURNED')
 ```
 
-**3. Update konfigurasi di `src/config/database.js`**
+**3. Update konfigurasi di `./config/database.js`**
 ```
 { user: 'postgres',
  host: 'localhost',
