@@ -207,7 +207,7 @@ CREATE TABLE borrowings (
  '2024-12-10', '2024-12-17', 'RETURNED');
 ```
 
-**3. Update konfigurasi di ```src/config/database.js```**
+**3. Update konfigurasi di `./config/database.js`**
 
 ```
  const sequelize = new Sequelize(
@@ -224,7 +224,7 @@ CREATE TABLE borrowings (
 ## 📜 Cara Menjalankan Aplikasi
 
 ```
-npm start
+node app.js
 ```
 
 the server will run on ```http://localhost:4000```
